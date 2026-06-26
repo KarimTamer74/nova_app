@@ -6,10 +6,7 @@ A modern, responsive Flutter e-commerce application showcasing products across m
 
 ## 📱 Preview
 
-![App Home Screen](https://via.placeholder.com/300x600?text=Home+Screen)
-![Products Grid](https://via.placeholder.com/300x600?text=Products+Grid)
-![Categories](https://via.placeholder.com/300x600?text=Categories)
-
+![App Home Screen](assets/app_shots/home_screen.png)
 ---
 
 ## ✨ Features
@@ -159,46 +156,7 @@ This architecture is lightweight and suitable for MVP-stage applications. Future
    flutter build ios --release
    ```
 
----
 
-## 📂 Folder Structure
-
-```
-nova_app/
-├── android/                          # Android native code
-│   ├── app/
-│   │   ├── build.gradle.kts         # App-level Gradle configuration
-│   │   └── src/
-│   │       ├── debug/               # Debug-specific files
-│   │       ├── main/                # Main app source
-│   │       └── profile/             # Profile-specific files
-│   ├── build.gradle.kts             # Project-level Gradle config
-│   ├── gradle.properties            # Gradle properties
-│   ├── settings.gradle.kts          # Gradle settings
-│   └── gradle/wrapper/              # Gradle wrapper files
-│
-├── ios/                              # iOS native code
-│   ├── Runner/                      # Main app container
-│   │   ├── AppDelegate.swift        # iOS app delegate
-│   │   ├── GeneratedPluginRegistrant # Plugin registration
-│   │   └── Assets.xcassets/         # App icons and images
-│   ├── Runner.xcodeproj/            # Xcode project
-│   └── Runner.xcworkspace/          # Xcode workspace
-│
-├── lib/                              # Dart source code
-│   ├── main.dart                    # App entry point
-│   ├── home_screen.dart             # Home screen widget
-│   ├── categories_section.dart      # Categories component
-│   └── products_section.dart        # Products component
-│
-├── test/                             # Widget tests
-│   └── widget_test.dart             # Sample widget test
-│
-├── pubspec.yaml                      # Project configuration and dependencies
-├── analysis_options.yaml             # Dart analyzer configuration
-├── nova_app.iml                      # IntelliJ IDEA project file
-└── README.md                         # Documentation
-```
 
 ---
 
@@ -249,9 +207,9 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 👤 Author
 
-**GitHub**: [@TODO_GITHUB_USERNAME](https://github.com/TODO_GITHUB_USERNAME)
+**GitHub**: [KarimTamer74](https://github.com/TODO_GITHUB_USERNAME)
 
-**Email**: TODO_EMAIL@example.com
+**Email**: karimabokamel74@gmail.com
 
 ---
 
