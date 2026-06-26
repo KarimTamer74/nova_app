@@ -1,6 +1,7 @@
 // home_screen.dart
 
 import 'package:flutter/material.dart';
+import 'package:nova_app/categories_section.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -76,6 +77,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              CategoriesSection(),
             ],
           ),
         ),
