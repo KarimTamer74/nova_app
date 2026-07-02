@@ -1,10 +1,11 @@
 // products_grid_view.dart
 import 'package:flutter/material.dart';
 import 'package:nova_app/product_details_screen.dart';
+import 'package:nova_app/product_model.dart';
 
 class ProductsGridView extends StatelessWidget {
   const ProductsGridView({super.key, required this.products});
-  final List products;
+  final List<ProductModel> products;
 
   @override
   Widget build(BuildContext context) {
@@ -18,31 +19,23 @@ class ProductsGridView extends StatelessWidget {
       ),
       itemBuilder: (context, index) {
         double priceAfterDiscount =
-            products[index]['price'] -
-            (products[index]['price'] *
-                (products[index]['discountPercentage'] / 100));
+            products[index].price -
+            (products[index].price *
+                (products[index].discount / 100));
         return InkWell(
           onTap: () {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => ProductDetailsScreen(
-                  product: products[index],
-                  priceAfterDiscount: priceAfterDiscount,
-                ),
+                builder: (context) =>
+                    ProductDetailsScreen(product: products[index],priceAfterDiscount: priceAfterDiscount,),
               ),
             );
           },
           child: Card(
             child: Column(
               children: [
-                Hero(
-                  tag: products[index]['id'].toString(),
-                  child: Image.network(
-                    products[index]['thumbnail'],
-                    height: 150,
-                  ),
-                ),
+                Image.network(products[index].brand, height: 150),
                 Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Column(
@@ -50,11 +43,11 @@ class ProductsGridView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        products[index]['brand'] ?? 'No Brand',
+                        products[index].brand ,
                         style: TextStyle(fontSize: 9),
                       ),
                       Text(
-                        products[index]['title'],
+                        products[index].title,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -66,7 +59,7 @@ class ProductsGridView extends StatelessWidget {
                         spacing: 10,
                         children: [
                           Icon(Icons.star, color: Colors.orange),
-                          Text(products[index]['rating'].toString()),
+                          Text(products[index].rating.toString()),
                         ],
                       ),
                       Row(
@@ -80,7 +73,7 @@ class ProductsGridView extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            '\$${products[index]['price']}',
+                            '\$${products[index].price}',
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,

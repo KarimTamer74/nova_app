@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:nova_app/home_screen.dart';
 
 void main() {
+  // List values = ['a', true];
+  // List myList = [1, 2, 3,values];
   runApp(NovaApp());
 }
 

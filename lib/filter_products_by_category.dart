@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:nova_app/product_model.dart';
 import 'package:nova_app/products_grid_view.dart';
 
 class FilterProductsByCategory extends StatefulWidget {
@@ -14,7 +15,7 @@ class FilterProductsByCategory extends StatefulWidget {
 }
 
 class _FilterProductsByCategoryState extends State<FilterProductsByCategory> {
-  List products = [];
+  List<ProductModel> products = [];
   Future<void> getProductsByCat() async {
     final Dio dio = Dio();
     final response = await dio.get(

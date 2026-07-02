@@ -1,5 +1,7 @@
 // product_details_screen.dart
 import 'package:flutter/material.dart';
+import 'package:nova_app/app_colors.dart';
+import 'package:nova_app/product_model.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   const ProductDetailsScreen({
@@ -7,7 +9,7 @@ class ProductDetailsScreen extends StatelessWidget {
     required this.product,
     required this.priceAfterDiscount,
   });
-  final Map product;
+  final ProductModel product;
   final double priceAfterDiscount;
   @override
   Widget build(BuildContext context) {
@@ -18,136 +20,144 @@ class ProductDetailsScreen extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  Hero(
-                    tag: product['id'].toString(),
-                    child: Image.network(
-                      product['thumbnail'],
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                      height: 300,
-                    ),
+                  Image.network(
+                    product.image,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
                   ),
-                  Positioned(
-                    top: 10,
-                    left: 10,
-                    child: IconButton(
-                      padding: EdgeInsets.zero,
-                      style: IconButton.styleFrom(
-                        backgroundColor: Color(0xffF3F4F6),
+                  Row(
+                    children: [
+                      IconButton(
+                        style: IconButton.styleFrom(
+                          backgroundColor: Color(0xffF3F4F6),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadiusGeometry.circular(15),
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(Icons.arrow_back),
                       ),
-                      icon: const Icon(Icons.arrow_back, color: Colors.black),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
-                  Positioned(
-                    top: 10,
-                    right: 10,
-                    child: Row(
-                      children: [
-                        IconButton(
-                          padding: EdgeInsets.zero,
-                          style: IconButton.styleFrom(
-                            backgroundColor: Color(0xffF3F4F6),
+                      Spacer(),
+                      IconButton(
+                        style: IconButton.styleFrom(
+                          backgroundColor: Color(0xffF3F4F6),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadiusGeometry.circular(15),
                           ),
-                          icon: const Icon(
-                            Icons.favorite_border,
-                            color: Colors.black,
-                          ),
-                          onPressed: () {},
                         ),
-                        IconButton(
-                          padding: EdgeInsets.zero,
-                          style: IconButton.styleFrom(
-                            backgroundColor: Color(0xffF3F4F6),
+                        onPressed: () {},
+                        icon: Icon(Icons.favorite_border),
+                      ),
+                      IconButton(
+                        style: IconButton.styleFrom(
+                          backgroundColor: Color(0xffF3F4F6),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadiusGeometry.circular(15),
                           ),
-                          icon: const Icon(Icons.share, color: Colors.black),
-                          onPressed: () {},
                         ),
-                      ],
-                    ),
+                        onPressed: () {},
+                        icon: Icon(Icons.share),
+                      ),
+                    ],
                   ),
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.all(14.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 18,
+                ),
                 child: Column(
-                  spacing: 12,
+                  spacing: 10,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      product['title'],
+                      product.brand,
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Text(
+                      product.title,
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+                    // * Spread Operator
                     Row(
                       children: [
                         ...List.generate(5, (index) {
-                          int rating = product['rating'].round();
-                          return Icon(
-                            index < rating ? Icons.star : Icons.star_border,
-                            color: Color(0xffFB923C),
-                          );
+                          int rating = product.rating.round();
+                          return index < rating
+                              ? Icon(Icons.star, color: Color(0xffFB923C))
+                              : Icon(Icons.star_border, color: Colors.grey);
                         }),
-                        SizedBox(width: 5),
-                        Text(
-                          '${product['rating']}',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(width: 5),
+                        SizedBox(width: 10),
 
                         Text(
-                          '(${product['reviews'].length} reviews)',
-                          style: TextStyle(fontSize: 16, color: Colors.grey),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      spacing: 5,
-                      children: [
-                        Text(
-                          '\$${priceAfterDiscount.toStringAsFixed(2)}',
+                          product.rating.toString(),
                           style: TextStyle(
-                            fontSize: 30,
+                            fontSize: 14,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
+                        SizedBox(width: 10),
                         Text(
-                          '\$${product['price']}',
-
+                          '(${product.reviews.length} reviews)',
                           style: TextStyle(
-                            decoration: TextDecoration.lineThrough,
-                            fontSize: 16,
-                            color: Colors.grey,
-                          ),
-                        ),
-                        Text(
-                          'Save \$${product['discountPercentage']}',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.green,
-                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            color: Color(0xff9CA3AF),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 10),
+                    RichText(
+                      text: TextSpan(
+                        text: '\$${priceAfterDiscount.toStringAsFixed(2)}  ',
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: '\$${product.price}  ',
+                            style: TextStyle(
+                              color: AppColors.greyClr,
+                              fontSize: 16,
+                            ),
+                          ),
+                          TextSpan(
+                            text: 'Save \$${product.discount}',
+                            style: TextStyle(
+                              color: AppColors.greenClr,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 15),
                     Text(
                       'Description',
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
-                      product['description'],
-                      style: TextStyle(fontSize: 16, color: Colors.grey),
+                      product.desc,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.greyDarkClr,
+                      ),
                     ),
                   ],
                 ),

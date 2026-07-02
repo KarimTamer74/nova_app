@@ -1,9 +1,8 @@
 // products_section.dart
 
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:nova_app/product_model.dart';
 import 'package:nova_app/products_grid_view.dart';
 
 class ProductsSection extends StatefulWidget {
@@ -14,15 +13,18 @@ class ProductsSection extends StatefulWidget {
 }
 
 class _ProductsSectionState extends State<ProductsSection> {
-  List products = [];
+  List<ProductModel> products = [];
 
   Future<void> getProducts() async {
     final Dio dio = Dio();
     final response = await dio.get('https://dummyjson.com/products');
-   products = response.data['products'];
-    
-    setState(() {});
-    log(products.length.toString());
+
+    for (var element in response.data['products']) {
+      ProductModel product = ProductModel.fromJson(element);
+      products.add(product);
+    }
+    // setState(() {});
+    // log(products.length.toString());
   }
 
   @override
@@ -60,9 +62,7 @@ class _ProductsSectionState extends State<ProductsSection> {
               ),
             ],
           ),
-          Expanded(
-            child: ProductsGridView(products: products,)
-          ),
+          Expanded(child: ProductsGridView(products: products)),
         ],
       ),
     );
